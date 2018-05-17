@@ -1,3 +1,4 @@
+import com.sun.istack.internal.NotNull;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +12,7 @@ import org.testng.annotations.Test;
 import static java.lang.Thread.sleep;
 
 public class LinkedinLoginTest {
- WebDriver webDriver;
+ public  WebDriver webDriver;
 
  @BeforeMethod
  public void before() {
@@ -21,33 +22,25 @@ public class LinkedinLoginTest {
 
  @Test
  public void successfulLoginTest() throws InterruptedException {
+  LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
 
-  String signUpTitle = webDriver.getTitle();
-
-  Assert.assertEquals(webDriver.getTitle(), "LinkedIn: Log In or Sign Up",
+  Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
+          "LinkedIn: Log In or Sign Up",
           "Login page title is wrong!");
 
-  Assert.assertEquals(webDriver.getCurrentUrl(), "https://us.linkedin.com/",
-          "URL is wrong!");
-
-
-
-  LinkedinLoginPage linkedinLoginPage  = new LinkedinLoginPage();
-  linkedinLoginPage.login( "postoltest@gmail.com", "q12345678");
-
-/*  Assert.assertTrue(clickSignInButton.isDisplayed(), // -заернуть в класс linkedinLoginPage
+  Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
           "Sign In button is not Displayed");
-*/
+  linkedinLoginPage.login( "postoltest@gmail.com", "q12345678");
 
   sleep(3000);
 
-  Assert.assertEquals(webDriver.getTitle(), "LinkedIn", "Page title for authorized user is wrong!");
+  LinkedinHomePage linkedinHomePage = new LinkedinHomePage (webDriver);
+  Assert.assertEquals(linkedinHomePage.getCurrenUrl(),
+          "https://www.linkedin.com/feed/",
+          "Home page is wrong");
 
-  String homePageTitle = webDriver.getTitle();
-
-  Assert.assertNotEquals(signUpTitle, homePageTitle, "Home page title is wrong!");
-
-
+  Assert.assertTrue(linkedinHomePage.getCurrentTitle().contains("LinkedIn"),
+          "Home page Title is wrong");
  }
 
 
@@ -55,23 +48,17 @@ public class LinkedinLoginTest {
     @Test
     public  void negativeLoginTest() throws InterruptedException {
 
-
-
-     String signUpTitle = webDriver.getTitle();
-
      Assert.assertEquals(webDriver.getTitle(), "LinkedIn: Log In or Sign Up",
              "Login page title is wrong!");
 
      Assert.assertEquals(webDriver.getCurrentUrl(), "https://us.linkedin.com/",
              "URL is wrong!");
 
-     WebElement inputLoginField = webDriver.findElement(By.xpath("//input [@class='login-email' and contains(@type,'text')]"));
-     WebElement inputPasswordField = webDriver.findElement(By.xpath("//input [@class='login-password' and contains(@type,'password')]"));
-     WebElement clickSignInButton = webDriver.findElement(By.xpath("//input [@class='login submit-button' and contains(@type,'submit')]"));
+     LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
+     Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
+             "Sign In button is not Displayed");
+     linkedinLoginPage.login( "postoltest@gmail.com", "1");
 
-     inputLoginField.sendKeys("postoltest@gmail.com");
-     inputPasswordField.sendKeys("1");
-     clickSignInButton.sendKeys(Keys.ENTER);
 
      sleep(3000);
 
@@ -88,8 +75,7 @@ public class LinkedinLoginTest {
              "There were one or more errors in your submission. Please correct the marked fields below.",
              "Wrong error message text displayed!" );
 
-     webDriver.close();
- }
+    }
 
     @AfterMethod
     public void after() {
