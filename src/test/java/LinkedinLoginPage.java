@@ -3,16 +3,12 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-
-
 public class LinkedinLoginPage {
     private  WebDriver webDriver;
 
-
-
-    private  WebElement LoginField;
-    private WebElement PasswordField;
-    private WebElement SignInButton;
+    private WebElement loginField;
+    private WebElement passwordField;
+    private WebElement signInButton;
 
     public LinkedinLoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -20,22 +16,22 @@ public class LinkedinLoginPage {
     }
 
     public void initElements() {
-        LoginField = webDriver.findElement(By.xpath("//input [@class='login-email' and contains(@type,'text')]"));
-        PasswordField = webDriver.findElement(By.xpath("//input [@class='login-password' and contains(@type,'password')]"));
-        SignInButton = webDriver.findElement(By.xpath("//input [@class='login submit-button' and contains(@type,'submit')]"));
+        loginField = webDriver.findElement(By.xpath("//input [@class='login-email' and contains(@type,'text')]"));
+        passwordField = webDriver.findElement(By.xpath("//input [@class='login-password' and contains(@type,'password')]"));
+        signInButton = webDriver.findElement(By.xpath("//input [@class='login submit-button' and contains(@type,'submit')]"));
     }
 
     public void login(String email, String password) {
-        LoginField.sendKeys(email);
-        PasswordField.sendKeys(password);
-        SignInButton.sendKeys(Keys.ENTER);
+        loginField.sendKeys(email);
+        passwordField.sendKeys(password);
+        signInButton.sendKeys(Keys.ENTER);
     }
 
     public boolean isSignInButtonDisplayed() {
-        return SignInButton.isDisplayed();
+        return signInButton.isDisplayed();
         }
 
-    public String getCurrenUrl(){
+    public String getCurrentUrl(){
         return  webDriver.getCurrentUrl();
     }
 

@@ -9,10 +9,12 @@ public class LinkedinHomePage {
     }
 
     public String getCurrenUrl() {
+
         return  webDriver.getCurrentUrl();
     }
 
     public String getCurrentTitle() {
+
         return webDriver.getTitle();
     }
 }
