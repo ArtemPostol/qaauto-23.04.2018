@@ -3,8 +3,10 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LinkedinLoginPage {
-    private  WebDriver webDriver;
+public class LinkedinLoginPage extends LinkedinBasePage {
+    public LinkedinLoginPage(WebDriver webDriver) {
+        super(webDriver);
+    }
 
     private WebElement loginField;
     private WebElement passwordField;
@@ -31,11 +33,4 @@ public class LinkedinLoginPage {
         return signInButton.isDisplayed();
         }
 
-    public String getCurrentUrl(){
-        return  webDriver.getCurrentUrl();
-    }
-
-    public String getCurrentTitle(){
-        return webDriver.getTitle();
-    }
     }

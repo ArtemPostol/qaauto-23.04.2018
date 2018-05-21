@@ -2,28 +2,31 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LinkedinLoginSubmitPage {
-    private WebDriver webDriver;
-
+public class LinkedinLoginSubmitPage extends LinkedinBasePage {
+    public LinkedinLoginSubmitPage(WebDriver webDriver) {
+        super(webDriver);
+    }
     private WebElement errorMessage;
     private WebElement errorEmailMessage;
     private WebElement errorPasswordMessage;
+    private WebElement emailField;
 
     public  LinkedinLoginSubmitPage(WebDriver webDriver) {
         this.webDriver = webDriver;
-
+        initElements();
     }
 
-
+    public void initElements() {
+        errorMessage = webDriver.findElement(By.xpath("//div[@role='alert']"));
+           }
 
     public String getTextErrorMessage() {
-        errorMessage = webDriver.findElement(By.xpath("//div[@role='alert']"));
-                   return errorMessage.getText();
+                           return errorMessage.getText();
     }
 
     public String getTextEmailErrorMessage() {
-       errorEmailMessage = webDriver.findElement(By.xpath("//span [@class='error' and contains(@id,'session_key-login-error')]"));
-                   return errorEmailMessage.getText();
+        errorEmailMessage = webDriver.findElement(By.xpath("//span [@class='error' and contains(@id,'session_key-login-error')]"));
+                          return errorEmailMessage.getText();
     }
 
     public String getTextPasswordErrorMessage() {
@@ -31,7 +34,12 @@ public class LinkedinLoginSubmitPage {
                 return errorPasswordMessage.getText();
     }
 
-    public String getCurrenUrl() {
+    public boolean isPageLoaded(){
+        emailField = webDriver.findElement(By.id("session_key-login"));
+        return emailField.isDisplayed();
+    }
+
+    public String getCurrentUrl() {
         return  webDriver.getCurrentUrl();
     }
 

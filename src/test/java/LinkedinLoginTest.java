@@ -3,6 +3,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static java.lang.Thread.sleep;
@@ -17,8 +18,16 @@ public class LinkedinLoginTest {
   webDriver.get("https://us.linkedin.com/");
  }
 
-     @Test
-     public void successfulLoginTest() throws InterruptedException {
+    @DataProvider
+    public Object[][] validDataProvider() {
+        return new Object[][]{
+                { "postoltest@gmail.com", "q12345678" },
+                { "POSTOLTEST@GMAIL.COM", "q12345678" },
+        };
+    }
+
+     @Test (dataProvider = "validDataProvider")
+     public void successfulLoginTest(String email, String password) throws InterruptedException {
   LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
 
   Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
@@ -27,12 +36,12 @@ public class LinkedinLoginTest {
   Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
           "Sign In button is not Displayed");
 
-  linkedinLoginPage.login( "postoltest@gmail.com", "q12345678");
+  linkedinLoginPage.login( email, password);
 
   sleep(3000);
 
   LinkedinHomePage linkedinHomePage = new LinkedinHomePage (webDriver);
-  Assert.assertEquals(linkedinHomePage.getCurrenUrl(),
+  Assert.assertEquals(linkedinHomePage.getCurrentUrl(),
           "https://www.linkedin.com/feed/",
           "Home page is wrong");
   Assert.assertTrue(linkedinHomePage.getCurrentTitle().contains("LinkedIn"),
@@ -41,7 +50,7 @@ public class LinkedinLoginTest {
 
 
     @Test
-    public  void wrongPasswordLoginTest() throws InterruptedException {
+    public  void negativeReturnedToLoginSubmitTest() throws InterruptedException {
 
      LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
      LinkedinLoginSubmitPage linkedinLoginSubmitPage = new LinkedinLoginSubmitPage(this.webDriver);
@@ -55,21 +64,20 @@ public class LinkedinLoginTest {
      Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
              "Sign In button is not Displayed");
 
+
+
      linkedinLoginPage.login( "postoltest@gmail.com", "12345678");
 
      sleep(3000);
 
-     Assert.assertEquals(linkedinLoginSubmitPage.getCurrenUrl(),
-             "https://www.linkedin.com/uas/login-submit",
-             "URL is wrong!");
 
-     Assert.assertEquals(linkedinLoginSubmitPage.getCurrentTitle(),
-             "Sign In to LinkedIn",
-             "Title is wrong!");
+     Assert.assertTrue(linkedinLoginSubmitPage.isPageLoaded(),
+                "Login-Submit Page is not loaded");
 
      Assert.assertEquals(linkedinLoginSubmitPage.getTextErrorMessage(),
              "There were one or more errors in your submission. Please correct the marked fields below.",
              "Wrong error message text displayed!");
+
 
     }
 
@@ -91,7 +99,7 @@ public class LinkedinLoginTest {
 
      sleep(3000);
 
-     Assert.assertEquals(linkedinLoginSubmitPage.getCurrenUrl(),
+     Assert.assertEquals(linkedinLoginSubmitPage.getCurrentUrl(),
              "https://www.linkedin.com/uas/login-submit",
              "URL is wrong!");
 
@@ -106,7 +114,7 @@ public class LinkedinLoginTest {
     }
 
     @Test
-    public void wrongLengthCharacters () throws InterruptedException {
+    public void wrongLengthCharactersTest () throws InterruptedException {
      LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
      LinkedinLoginSubmitPage linkedinLoginSubmitPage = new LinkedinLoginSubmitPage(this.webDriver);
 
@@ -123,7 +131,7 @@ public class LinkedinLoginTest {
 
      sleep(3000);
 
-     Assert.assertEquals(linkedinLoginSubmitPage.getCurrenUrl(),
+     Assert.assertEquals(linkedinLoginSubmitPage.getCurrentUrl(),
              "https://www.linkedin.com/uas/login-submit",
              "URL is wrong!");
 
@@ -141,7 +149,7 @@ public class LinkedinLoginTest {
     }
 
     @Test
-    public void notRecognizedEmail () throws InterruptedException {
+    public void notRecognizedEmailTest () throws InterruptedException {
      LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
      LinkedinLoginSubmitPage linkedinLoginSubmitPage = new LinkedinLoginSubmitPage(this.webDriver);
 
@@ -158,13 +166,13 @@ public class LinkedinLoginTest {
 
      sleep(3000);
 
-     Assert.assertEquals(linkedinLoginSubmitPage.getCurrenUrl(),
+     Assert.assertEquals(linkedinLoginSubmitPage.getCurrentUrl(),
              "https://www.linkedin.com/uas/login-submit",
              "URL is wrong!");
 
      Assert.assertEquals(linkedinLoginSubmitPage.getCurrentTitle(),
              "Sign In to LinkedIn",
-             "Log In to LinkedIn");
+             "Submit-login page title is wrong! ");
 
      Assert.assertEquals(linkedinLoginSubmitPage.getTextEmailErrorMessage(),
              "Hmm, we don't recognize that email. Please try again.",
