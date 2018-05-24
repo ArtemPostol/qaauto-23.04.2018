@@ -29,7 +29,7 @@ public class LinkedinLoginTest {
      @Test (dataProvider = "validLoginData")
      public void successfulLoginTest(String email, String password) throws InterruptedException {
   LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
-  LinkedinHomePage linkedinHomePage = new LinkedinHomePage (webDriver);
+
 
   Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
           "LinkedIn: Log In or Sign Up",
@@ -37,7 +37,8 @@ public class LinkedinLoginTest {
   Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
           "Sign In button is not Displayed");
 
-  linkedinLoginPage.login( email, password);
+
+  LinkedinHomePage linkedinHomePage = linkedinLoginPage.login( email, password);
 
   sleep(3000);
 

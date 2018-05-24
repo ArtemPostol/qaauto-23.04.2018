@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 public class LinkedinLoginSubmitPage extends LinkedinBasePage {
 
@@ -10,6 +11,7 @@ public class LinkedinLoginSubmitPage extends LinkedinBasePage {
 
     public  LinkedinLoginSubmitPage(WebDriver webDriver) {
         super(webDriver);
+        PageFactory.initElements(webDriver, this);
     }
 
 
