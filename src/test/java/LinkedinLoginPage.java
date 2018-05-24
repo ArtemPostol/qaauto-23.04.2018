@@ -1,19 +1,16 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class LinkedinLoginPage extends LinkedinBasePage {
-    public LinkedinLoginPage(WebDriver webDriver) {
-        super(webDriver);
-    }
+
 
     private WebElement loginField;
     private WebElement passwordField;
     private WebElement signInButton;
 
     public LinkedinLoginPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
+        super(webDriver);
         initElements();
     }
 
@@ -26,7 +23,7 @@ public class LinkedinLoginPage extends LinkedinBasePage {
     public void login(String email, String password) {
         loginField.sendKeys(email);
         passwordField.sendKeys(password);
-        signInButton.sendKeys(Keys.ENTER);
+        signInButton.click();
     }
 
     public boolean isSignInButtonDisplayed() {
