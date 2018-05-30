@@ -14,6 +14,9 @@ public class LinkedinLoginSubmitPage extends LinkedinBasePage {
     @FindBy (xpath = "//span [@class='error' and contains(@id,'session_password-login-error')]" )
     private WebElement emailField;
 
+    @FindBy (id = "layout-footer")
+    private WebElement submitPageFooter;
+
     public  LinkedinLoginSubmitPage(WebDriver webDriver) {
         super(webDriver);
         PageFactory.initElements(webDriver, this);
@@ -21,7 +24,7 @@ public class LinkedinLoginSubmitPage extends LinkedinBasePage {
 
 
     public String getTextErrorMessage() {
-        return errorMessage.getText();
+        return submitPageFooter.getText();
     }
 
 
@@ -34,5 +37,9 @@ public class LinkedinLoginSubmitPage extends LinkedinBasePage {
         return emailField.isDisplayed();
     }
 
- }
+
+    public WebElement waitUntilElementIsClickable() {
+        return super.waitUntilElementIsClickable(emailField, 20);
+    }
+}
 

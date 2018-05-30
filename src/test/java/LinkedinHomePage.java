@@ -7,15 +7,24 @@ import org.openqa.selenium.support.PageFactory;
 public class LinkedinHomePage extends LinkedinBasePage {
 
 
+    @FindBy (xpath = "//input [@role='combobox']")
+    private WebElement searchInput;
+
+    @FindBy (xpath = "//div [@role='contentinfo']")
+    private  WebElement contentInfo;
+
     public LinkedinHomePage(WebDriver webDriver) {
         super(webDriver);
         PageFactory.initElements(webDriver, this);
     }
 
-    @FindBy (xpath = "//input [@role='combobox']")
-    private WebElement searchInput;
-
-    public boolean isSearchInputDisplayed() {
+    boolean isPageLoaded() {
         return searchInput.isDisplayed();
+    }
+
+
+
+    public WebElement waitUntilElementIsClickable() {
+        return super.waitUntilElementIsClickable(contentInfo, 60);
     }
 }

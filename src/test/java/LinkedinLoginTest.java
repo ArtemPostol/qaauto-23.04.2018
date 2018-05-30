@@ -27,21 +27,22 @@ public class LinkedinLoginTest {
     }
 
      @Test (dataProvider = "validLoginData")
-     public void successfulLoginTest(String email, String password) throws InterruptedException {
-  LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
+     public void successfulLoginTest(String email, String password)  {
+
+     LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(webDriver);
 
 
   Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
           "LinkedIn: Log In or Sign Up",
           "Login page title is wrong!");
-  Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
-          "Sign In button is not Displayed");
+  Assert.assertTrue(linkedinLoginPage.isPageLoaded(),
+          "Login page is not Displayed");
 
 
-  LinkedinHomePage linkedinHomePage = linkedinLoginPage.login( email, password);
+  LinkedinHomePage linkedinHomePage = linkedinLoginPage.login(email, password);
 
-  sleep(3000);
 
+  linkedinHomePage.waitUntilElementIsClickable();
 
   Assert.assertEquals(linkedinHomePage.getCurrentUrl(),
           "https://www.linkedin.com/feed/",
@@ -49,7 +50,7 @@ public class LinkedinLoginTest {
   Assert.assertTrue(linkedinHomePage.getCurrentTitle().contains("LinkedIn"),
           "Home page Title is wrong");
 
-  Assert.assertTrue(linkedinHomePage.isSearchInputDisplayed(),
+  Assert.assertTrue(linkedinHomePage.isPageLoaded(),
                  "Login-Submit Page is not loaded");
  }
 
@@ -67,7 +68,7 @@ public class LinkedinLoginTest {
     }
 
     @Test (dataProvider = "invalidLoginData")
-    public  void negativeReturnedToLoginSubmitTest(String email, String password) throws InterruptedException {
+    public  void negativeReturnedToLoginSubmitTest(String email, String password)  {
 
      LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
 
@@ -78,13 +79,12 @@ public class LinkedinLoginTest {
      Assert.assertEquals(linkedinLoginPage.getCurrentUrl(),
              "https://us.linkedin.com/",
              "URL is wrong!");
-     Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
+     Assert.assertTrue(linkedinLoginPage.isPageLoaded(),
              "Sign In button is not Displayed");
 
-      LinkedinLoginSubmitPage linkedinLoginSubmitPage = linkedinLoginPage.failedLogin( email, password);
+      LinkedinLoginSubmitPage linkedinLoginSubmitPage = linkedinLoginPage.login( email, password);
 
-     sleep(3000);
-
+      linkedinLoginSubmitPage.waitUntilElementIsClickable();
 
      Assert.assertTrue(linkedinLoginSubmitPage.isPageLoaded(),
                 "Login-Submit Page is not loaded");
@@ -114,10 +114,12 @@ public class LinkedinLoginTest {
         Assert.assertEquals(linkedinLoginPage.getCurrentUrl(),
                 "https://us.linkedin.com/",
                 "URL is wrong!");
-        Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
-                "Sign In button is not Displayed");
+        Assert.assertTrue(linkedinLoginPage.isPageLoaded(),
+                "Log in page is not Displayed");
 
         linkedinLoginPage.login( email, password);
+
+        linkedinLoginPage.waitUntilElementIsClickable();
 
         Assert.assertEquals(linkedinLoginPage.getCurrentUrl(),
                 "https://us.linkedin.com/",
@@ -138,7 +140,7 @@ public class LinkedinLoginTest {
     }
 
     @Test (dataProvider = "wrongPasswordLengthData")
-    public void wrongPasswordLengthTest (String email, String password) throws InterruptedException {
+    public void wrongPasswordLengthTest (String email, String password)  {
      LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
 
      Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
@@ -147,12 +149,12 @@ public class LinkedinLoginTest {
      Assert.assertEquals(linkedinLoginPage.getCurrentUrl(),
              "https://us.linkedin.com/",
              "URL is wrong!");
-     Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
-             "Sign In button is not Displayed");
+     Assert.assertTrue(linkedinLoginPage.isPageLoaded(),
+             "Log In Page is not Displayed");
 
-     LinkedinLoginSubmitPage linkedinLoginSubmitPage = linkedinLoginPage.failedLogin( email, password);
+     LinkedinLoginSubmitPage linkedinLoginSubmitPage = linkedinLoginPage.login( email, password);
 
-     sleep(3000);
+     linkedinLoginSubmitPage.waitUntilElementIsClickable();
 
      Assert.assertEquals(linkedinLoginSubmitPage.getCurrentUrl(),
              "https://www.linkedin.com/uas/login-submit",
@@ -161,6 +163,51 @@ public class LinkedinLoginTest {
      Assert.assertEquals(linkedinLoginSubmitPage.getTextPasswordErrorMessage(),
              "The password you provided must have at least 6 characters.",
              "Wrong error message text displayed!");
+   }
+
+    @DataProvider
+    public Object[] [] email() {
+        return new Object[] [] {
+                { "postoltest@gmail.com"},
+        };
+    }
+
+   @Test (dataProvider = "email")
+   public void successfulResetPasswordTest(String email) throws InterruptedException {
+     LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
+
+       Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
+               "LinkedIn: Log In or Sign Up",
+               "Login page title is wrong!");
+       Assert.assertEquals(linkedinLoginPage.getCurrentUrl(),
+               "https://us.linkedin.com/",
+               "URL is wrong!");
+       Assert.assertTrue(linkedinLoginPage.isPageLoaded(),
+               "Log In Page is not Displayed");
+
+
+
+       LinkedinRequestPasswordReset linkedinRequestPasswordReset = linkedinLoginPage.resetPassword(this.webDriver);
+
+       Assert.assertTrue(linkedinRequestPasswordReset.isPageLoaded(),
+               "Request Password Reset page is not displayed! ");
+
+       sleep(3000);
+
+       LinkedinCheckpointReset linkedinCheckpointReset = linkedinRequestPasswordReset.enterEmail(email);
+
+       sleep(3000);
+
+       Assert.assertTrue(linkedinCheckpointReset.isPageLoaded());
+
+     //  GMailService.main();
+
+
+
+
+
+
+
    }
 
     @AfterMethod
