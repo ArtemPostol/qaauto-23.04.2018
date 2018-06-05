@@ -1,3 +1,5 @@
+package page;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,11 +29,11 @@ public class LinkedinLoginPage extends LinkedinBasePage {
 
     }
 
-    boolean isPageLoaded() {
+    public boolean  isPageLoaded() {
         return signInButton.isDisplayed();
     }
 
-    public LinkedinRequestPasswordReset resetPassword (WebDriver webDriver) {
+    public LinkedinRequestPasswordReset clickForgotPassword () {
         forgotPasswordButton.click();
         return new LinkedinRequestPasswordReset(webDriver);
     }

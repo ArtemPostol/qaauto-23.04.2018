@@ -1,3 +1,5 @@
+package test;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
@@ -5,18 +7,14 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import page.*;
 
 import static java.lang.Thread.sleep;
 
-public class LinkedinLoginTest {
+public class LinkedinLoginTest extends LinkedinBaseTest{
  public  WebDriver webDriver;
 
 
- @BeforeMethod
- public void before() {
-  webDriver = new FirefoxDriver();
-  webDriver.get("https://us.linkedin.com/");
- }
 
     @DataProvider
     public Object[][] validLoginData() {
@@ -28,9 +26,6 @@ public class LinkedinLoginTest {
 
      @Test (dataProvider = "validLoginData")
      public void successfulLoginTest(String email, String password)  {
-
-     LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(webDriver);
-
 
   Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
           "LinkedIn: Log In or Sign Up",
@@ -70,8 +65,6 @@ public class LinkedinLoginTest {
     @Test (dataProvider = "invalidLoginData")
     public  void negativeReturnedToLoginSubmitTest(String email, String password)  {
 
-     LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
-
 
      Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
              "LinkedIn: Log In or Sign Up",
@@ -106,7 +99,6 @@ public class LinkedinLoginTest {
 
     @Test (dataProvider = "emptyLoginFieldData")
     public  void negativeStayAtLoginPageTest (String email, String password) {
-        LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
 
         Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
                 "LinkedIn: Log In or Sign Up",
@@ -141,7 +133,7 @@ public class LinkedinLoginTest {
 
     @Test (dataProvider = "wrongPasswordLengthData")
     public void wrongPasswordLengthTest (String email, String password)  {
-     LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
+
 
      Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
              "LinkedIn: Log In or Sign Up",
@@ -164,55 +156,4 @@ public class LinkedinLoginTest {
              "The password you provided must have at least 6 characters.",
              "Wrong error message text displayed!");
    }
-
-    @DataProvider
-    public Object[] [] email() {
-        return new Object[] [] {
-                { "postoltest@gmail.com"},
-        };
-    }
-
-   @Test (dataProvider = "email")
-   public void successfulResetPasswordTest(String email) throws InterruptedException {
-     LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(this.webDriver);
-
-       Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
-               "LinkedIn: Log In or Sign Up",
-               "Login page title is wrong!");
-       Assert.assertEquals(linkedinLoginPage.getCurrentUrl(),
-               "https://us.linkedin.com/",
-               "URL is wrong!");
-       Assert.assertTrue(linkedinLoginPage.isPageLoaded(),
-               "Log In Page is not Displayed");
-
-
-
-       LinkedinRequestPasswordReset linkedinRequestPasswordReset = linkedinLoginPage.resetPassword(this.webDriver);
-
-       Assert.assertTrue(linkedinRequestPasswordReset.isPageLoaded(),
-               "Request Password Reset page is not displayed! ");
-
-       sleep(3000);
-
-       LinkedinCheckpointReset linkedinCheckpointReset = linkedinRequestPasswordReset.enterEmail(email);
-
-       sleep(3000);
-
-       Assert.assertTrue(linkedinCheckpointReset.isPageLoaded());
-
-     //  GMailService.main();
-
-
-
-
-
-
-
-   }
-
-    @AfterMethod
-    public void after() {
-    webDriver.close();
-  }
-
 }

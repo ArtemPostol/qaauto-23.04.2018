@@ -1,3 +1,5 @@
+package util;
+
 import com.sun.mail.imap.IdleManager;
 import javax.mail.*;
 import javax.mail.event.MessageCountAdapter;
@@ -23,23 +25,23 @@ public class GMailService {
      * Example of GMailService usage
      * @param args - dummy args for main()
      */
-    public static void main(String[] args) {
+ /*   public static void main(String[] args) {
         String messageSubject = "Artem, here's the link to reset your password";
-        String messageTo = "sst.tau@gmail.com";
+        String messageTo = "postoltest@gmail.com";
         String messageFrom = "LinkedIn <security-noreply@linkedin.com>";
 
         GMailService gMailService = new GMailService();
         gMailService.connect();
-        String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 10);
+        String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 60);
         System.out.println("Content: " + message);
     }
-
+*/
     /**
      * Default GMailService constructor with predefined user/pass credentials
      */
     public GMailService(){
         this.user = "postoltest@gmail.com";
-        this.pass = "******";
+        this.pass = "q12345678T";
     }
 
     /**

@@ -23,7 +23,7 @@ public class BadCodeExample {
 
         sleep (3000);
 
-       /* List<WebElement> searchResults = webDriver.findElements(By.xpath("//div [@class='srg']/div [@class='g']"));
+        List<WebElement> searchResults = webDriver.findElements(By.xpath("//div [@class='srg']/div [@class='g']"));
 
         System.out.println(searchResults.size());
 
@@ -34,7 +34,7 @@ public class BadCodeExample {
             }
             System.out.println( searchResultText);
         }
-       */
+
 
         for (int i=1; i<=10; i++) {
             WebElement searchResult = webDriver.findElement(By.xpath("//div [@class='srg']/div [" + i + "]"));

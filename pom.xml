@@ -21,8 +21,12 @@
     </build>
 
 
+
     <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
     <dependencies>
+
+
+
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -35,11 +39,21 @@
             <scope>test</scope>
         </dependency>
 
+
+
         <dependency>
                         <groupId>com.sun.mail</groupId>
                         <artifactId>javax.mail</artifactId>
                        <version>1.6.1</version>
         </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+
 
     </dependencies>
 
