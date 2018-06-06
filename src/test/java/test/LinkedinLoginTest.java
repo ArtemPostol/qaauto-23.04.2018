@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import page.*;
+import page.LinkedinHomePage;
 
 import static java.lang.Thread.sleep;
 
@@ -19,8 +20,8 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
     @DataProvider
     public Object[][] validLoginData() {
         return new Object[][]{
-                { "postoltest@gmail.com", "q12345678" },
-                { "POSTOLTEST@GMAIL.COM", "q12345678" },
+                { "postoltest@gmail.com", "P@ssword123" },
+                { "POSTOLTEST@GMAIL.COM", "P@ssword123" },
         };
     }
 
@@ -63,7 +64,7 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
     }
 
     @Test (dataProvider = "invalidLoginData")
-    public  void negativeReturnedToLoginSubmitTest(String email, String password)  {
+    public  void negativeReturnedToLoginSubmitTest(String email, String password) throws InterruptedException {
 
 
      Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
@@ -77,7 +78,8 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
 
       LinkedinLoginSubmitPage linkedinLoginSubmitPage = linkedinLoginPage.login( email, password);
 
-      linkedinLoginSubmitPage.waitUntilElementIsClickable();
+
+     linkedinLoginSubmitPage.waitUntilElementIsClickable();
 
      Assert.assertTrue(linkedinLoginSubmitPage.isPageLoaded(),
                 "Login-Submit Page is not loaded");

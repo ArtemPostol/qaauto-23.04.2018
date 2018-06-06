@@ -25,17 +25,21 @@ public class LinkedinCheckpointReset extends LinkedinBasePage {
         String messageSubject = "here's the link to reset your password";
         String messageTo = "postoltest@gmail.com";
         String messageFrom = "security-noreply@linkedin.com";
-        String massage = gMailService.waitMessage(messageSubject, messageFrom, messageTo, 60  );
-        String resetPasswordLink = StringUtils.substringBetween(massage,
+        String message = gMailService.waitMessage(
+                messageSubject, messageTo, messageFrom, 30);
+
+        String resetPasswordLink = StringUtils.substringBetween(
+                message,
                 "To change your LinkedIn password, click <a href=\"",
                 "\" style").replace("&amp;","&");
+
         webDriver.get(resetPasswordLink);
         return new LinkedinSetNewPasswordPage(webDriver);
+
 
     }
 
 
 
-//      public new LinkedinSetNewPasswordPage navigateToLinkFromEmail(webDriver) ;
-//
+
 }

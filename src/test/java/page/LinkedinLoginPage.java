@@ -23,6 +23,10 @@ public class LinkedinLoginPage extends LinkedinBasePage {
     @FindBy (xpath = "//div [@class='legal-nav']")
     private  WebElement loginPageFooter;
 
+    @FindBy (xpath = "//input [@type= 'submit' and contains(@class,'btn-primary')]")
+    private  WebElement submitButton;
+
+
     public LinkedinLoginPage(WebDriver webDriver) {
         super(webDriver);
         PageFactory.initElements(webDriver, this);
@@ -45,7 +49,7 @@ public class LinkedinLoginPage extends LinkedinBasePage {
         if (getCurrentUrl().contains("/feed")){
             return (T) new LinkedinHomePage(webDriver);
         }
-        if (getCurrentTitle().contains("login-submit")) {
+        if (getCurrentTitle().contains("/login-submit")) {
             return (T) new LinkedinLoginSubmitPage(webDriver);
         }
         else {
@@ -54,7 +58,8 @@ public class LinkedinLoginPage extends LinkedinBasePage {
     }
 
 
-    public WebElement waitUntilElementIsClickable() {
-        return super.waitUntilElementIsClickable(loginPageFooter, 10);
+    public WebElement waitUntilElementIsClickable()
+    {
+        return super.waitUntilElementIsClickable(submitButton, 10);
     }
 }
