@@ -32,7 +32,7 @@ public class LinkedinResetPasswordTest extends LinkedinBaseTest{
         sleep(3000);
 
         String userEmail = "postoltest@gmail.com";
-        String newUserPassword ="Qwer3267";
+        String newUserPassword ="P@ssword123";
 
         LinkedinCheckpointReset linkedinCheckpointReset = linkedinRequestPasswordReset.submitUserEmail(userEmail);
 

@@ -55,7 +55,7 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
         return new Object[][]{
                 { "postoltest@gmail.com", "12345678" },
                 { "postoltest@gmail.com", "Q12345678" },
-                { "postoltestgmail.com", "q12345678" },
+                { "postoltest@gmail.com", "q12345678" },
                 { "postoltest@gmailcom", "q12345678" },
                 { "postoltest@gmailcom", "q" },
                 { "p", "q" },
@@ -76,8 +76,9 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
      Assert.assertTrue(linkedinLoginPage.isPageLoaded(),
              "Sign In button is not Displayed");
 
-      LinkedinLoginSubmitPage linkedinLoginSubmitPage = linkedinLoginPage.login( email, password);
 
+
+     LinkedinLoginSubmitPage linkedinLoginSubmitPage = linkedinLoginPage.login( email, password);
 
      linkedinLoginSubmitPage.waitUntilElementIsClickable();
 

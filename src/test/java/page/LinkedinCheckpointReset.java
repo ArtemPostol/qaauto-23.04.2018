@@ -7,20 +7,34 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 
+/**Linkedin Checkpoint Reset Object class
+ *
+ */
 public class LinkedinCheckpointReset extends LinkedinBasePage {
 
     @FindBy(xpath = "//button [@class='resend__link' and contains(@id,'resend-url')]")
     private WebElement resendLinkButton;
 
+    /**
+     * Linkedin Checkpoint Reset constructor
+     * @param webDriver - webDriver instance
+     */
     public LinkedinCheckpointReset(WebDriver webDriver) {
         super(webDriver);
         PageFactory.initElements(webDriver, this);
     }
 
+    /** Method return webElemet when it is displayed
+     * @return - webElement
+     */
     public boolean isPageLoaded() {
         return resendLinkButton.isDisplayed();
     }
 
+
+    /** Method get link for reset password
+     * @return - webDriver
+     */
     public LinkedinSetNewPasswordPage navigateToLinkFromEmail() {
         String messageSubject = "here's the link to reset your password";
         String messageTo = "postoltest@gmail.com";

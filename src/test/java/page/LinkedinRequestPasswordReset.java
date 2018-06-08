@@ -21,7 +21,10 @@ public class LinkedinRequestPasswordReset extends LinkedinBasePage {
     }
 
 
-
+    /** Input user email for send message
+     * @param email - user email
+     * @return - webDriver
+     */
     public  LinkedinCheckpointReset submitUserEmail(String email)  {
         gMailService.connect();
         userNameField.sendKeys(email);

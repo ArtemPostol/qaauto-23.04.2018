@@ -18,8 +18,8 @@ public class LinkedinSearchTest extends LinkedinBaseTest {
 
 
         LinkedinSearchResults linkedinSearchResults = linkedinHomePage.search(searchTerm);
-          Assert.assertTrue(linkedinSearchResults.isPageLoaded(),
-        "SearchResults Page is not loaded.");
+        Assert.assertTrue(linkedinSearchResults.isPageLoaded(),
+                "SearchResults Page is not loaded.");
 
         List<String> searchResultsList = linkedinSearchResults.getSearchResults();
         Assert.assertEquals(searchResultsList.size(), 10, "Count of search result items is wrong.");

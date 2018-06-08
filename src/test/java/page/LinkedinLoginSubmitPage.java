@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import page.LinkedinBasePage;
+
 
 public class LinkedinLoginSubmitPage extends LinkedinBasePage {
 
@@ -26,18 +26,23 @@ public class LinkedinLoginSubmitPage extends LinkedinBasePage {
     }
 
 
+    /** Method get text of error message
+     * @return - String
+     */
     public String getTextErrorMessage() {
-        return submitPageFooter.getText();
+        return errorMessage.getText();
     }
 
-
+    /** Method get text of error message
+     * @return - String
+     */
    public String getTextPasswordErrorMessage() {
         return errorPasswordMessage.getText();
    }
 
 
     public boolean isPageLoaded(){
-        return emailField.isDisplayed();
+        return submitPageFooter.isDisplayed();
     }
 
 

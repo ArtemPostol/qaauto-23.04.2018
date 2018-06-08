@@ -11,6 +11,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import page.LinkedinLoginPage;
 
+
 public class LinkedinBaseTest{
     WebDriver webDriver;
     LinkedinLoginPage linkedinLoginPage;
@@ -29,8 +30,8 @@ public class LinkedinBaseTest{
                 webDriver = new ChromeDriver();
                 break;
             default :
-                WebDriverManager.iedriver().setup();
-                webDriver = new InternetExplorerDriver();
+                WebDriverManager.chromedriver().setup();
+                webDriver = new ChromeDriver();
         }
 
         webDriver.navigate().to(envURL);

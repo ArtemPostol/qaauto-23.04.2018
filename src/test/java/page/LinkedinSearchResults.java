@@ -33,6 +33,9 @@ public class LinkedinSearchResults extends LinkedinBasePage {
     }
 
 
+    /** Get search result convert to String
+     * @return List String
+     */
     public List<String> getSearchResults() {
         List<String> searchResultsList = new ArrayList();
         for (WebElement searchResult : searchResults) {
@@ -45,4 +48,3 @@ public class LinkedinSearchResults extends LinkedinBasePage {
         return searchResultsList;
     }
 }
-

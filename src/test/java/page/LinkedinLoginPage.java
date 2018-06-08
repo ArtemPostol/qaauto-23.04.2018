@@ -37,11 +37,20 @@ public class LinkedinLoginPage extends LinkedinBasePage {
         return signInButton.isDisplayed();
     }
 
+    /** Method click on link forgot password
+     * @return - webDriver
+     */
     public LinkedinRequestPasswordReset clickForgotPassword () {
         forgotPasswordButton.click();
         return new LinkedinRequestPasswordReset(webDriver);
     }
 
+    /** Login Method
+     * @param email - current e-mail
+     * @param password - current password
+     * @param <T> - data type for return page
+     * @return - webDriver
+     */
     public <T> T login(String email,String password ) {
         loginField.sendKeys(email);
         passwordField.sendKeys(password);
@@ -49,7 +58,7 @@ public class LinkedinLoginPage extends LinkedinBasePage {
         if (getCurrentUrl().contains("/feed")){
             return (T) new LinkedinHomePage(webDriver);
         }
-        if (getCurrentTitle().contains("/login-submit")) {
+        if (getCurrentUrl().contains("/login-submit")) {
             return (T) new LinkedinLoginSubmitPage(webDriver);
         }
         else {

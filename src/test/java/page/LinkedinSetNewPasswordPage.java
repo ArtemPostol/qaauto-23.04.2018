@@ -30,6 +30,10 @@ public class LinkedinSetNewPasswordPage extends LinkedinBasePage{
         return submitButton.isDisplayed();
     }
 
+    /**Method submit new password
+     * @param newUserPassword
+     * @return - webDriver
+     */
       public LinkedinSuccessfulPaswordResetPage submitNewPassword(String newUserPassword) {
         inputNewPassword.sendKeys(newUserPassword);
         confirmPassword.sendKeys(newUserPassword);
