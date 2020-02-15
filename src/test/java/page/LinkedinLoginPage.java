@@ -8,20 +8,26 @@ import org.openqa.selenium.support.PageFactory;
 public class LinkedinLoginPage extends LinkedinBasePage {
 
 
-    @FindBy(xpath = "//input [@class='login-email' and contains(@type,'text')]")
+    @FindBy(xpath = "//input [@id='username' and contains(@type,'text')]")
     private WebElement loginField;
 
-    @FindBy(xpath = "//input [@class='login-password' and contains(@type,'password')]")
+    @FindBy(xpath = "//input [@id='password' and contains(@type,'password')]")
     private WebElement passwordField;
 
-    @FindBy(xpath = "//input [@class='login submit-button' and contains(@type,'submit')]")
+    @FindBy(xpath = "//button[@class='btn__primary--large from__button--floating']")
     private WebElement signInButton;
+
+    @FindBy(xpath = "//a [@class='nav__button-secondary']")
+    private WebElement loginButton;
 
     @FindBy (xpath = "//a [@class='link-forgot-password']")
     private WebElement forgotPasswordButton;
 
     @FindBy (xpath = "//div [@class='legal-nav']")
     private  WebElement loginPageFooter;
+
+    @FindBy (xpath = "//nav [@class='nav']")
+    private  WebElement loginPageHeader;
 
     @FindBy (xpath = "//input [@type= 'submit' and contains(@class,'btn-primary')]")
     private  WebElement submitButton;
@@ -34,7 +40,7 @@ public class LinkedinLoginPage extends LinkedinBasePage {
     }
 
     public boolean  isPageLoaded() {
-        return signInButton.isDisplayed();
+        return loginPageHeader.isDisplayed();
     }
 
     /** Method click on link forgot password
@@ -52,6 +58,7 @@ public class LinkedinLoginPage extends LinkedinBasePage {
      * @return - webDriver
      */
     public <T> T login(String email,String password ) {
+        loginButton.click();
         loginField.sendKeys(email);
         passwordField.sendKeys(password);
         signInButton.click();

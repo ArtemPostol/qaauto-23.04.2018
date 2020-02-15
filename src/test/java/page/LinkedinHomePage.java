@@ -16,7 +16,7 @@ public class LinkedinHomePage extends LinkedinBasePage {
     @FindBy (xpath = "//input [@role='combobox']")
     private WebElement searchInput;
 
-    @FindBy (xpath = "//div [@role='contentinfo']")
+    @FindBy (xpath = "//div [@class='neptune-grid three-column ghost-animate-in']")
     private  WebElement contentInfo;
 
     @FindBy (xpath = "//input [@type= 'text' and contains(@role,'combobox')]")

@@ -38,10 +38,10 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
   LinkedinHomePage linkedinHomePage = linkedinLoginPage.login(email, password);
 
 
-  linkedinHomePage.waitUntilElementIsClickable();
+  linkedinHomePage.isPageLoaded();
 
   Assert.assertEquals(linkedinHomePage.getCurrentUrl(),
-          "https://www.linkedin.com/feed/",
+          "https://www.linkedin.com/feed/?trk=guest_homepage-basic_nav-header-signin",
           "Home page is wrong");
   Assert.assertTrue(linkedinHomePage.getCurrentTitle().contains("LinkedIn"),
           "Home page Title is wrong");
